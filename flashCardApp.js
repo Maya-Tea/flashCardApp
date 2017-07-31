@@ -4,12 +4,11 @@ var inquirer = require("inquirer");
 //
 var rightCount;
 var wrongCount;
-var cardArray=[];
-var questions=[new ClozeCard("In javascript the this keyword can be used to reference a parent or the acted upon element.","this"),new ClozeCard("In javascript the splice method can add or delete elements in an array", "splice method")];
+let cardArray=[];
+var questions=[new ClozeCard("In javascript the this keyword can be used to reference a parent or the acted upon element.","this"),new ClozeCard("In javascript the splice method can add or delete elements in an array", "splice method"), new ClozeCard("In javascript objects are identified by a curly brace", "objects"), new ClozeCard("In javascript the new keyword is used to identify a ne constructor", "constructor")];
+
 console.log("WELCOME- this is a quiz and flashcard making app!");
-// var questions=[{q:"In javascript the this keyword can be used to reference a parent or the acted upon element.",a:"this"},
-// {q:"In javascript the splice method can add or delete elements in an array", a:"splice method"}];
-// console.log("WELCOME- this is a quiz and flashcard making app!");
+
 initialMenu();
 function initialMenu() {
 
@@ -26,7 +25,7 @@ function initialMenu() {
             count=0;
             rightCount=0;
             wrongCount=0;
-            askQuestions();
+            askQuestions(questions);
             break;
 
           case "Make flashcards":
@@ -38,48 +37,36 @@ function initialMenu() {
               break;
         }
     });
-//
-//   }
-//   else {
-//     for (var x = 0; x < programmerArray.length; x++) {
-//       programmerArray[x].printInfo();
-//     }
-//   }
  };
-
-
 
 var count;
 
-function askQuestions(){
+function askQuestions(array){
 
-if(count<questions.length){
-  // var thisCard=new ClozeCard(questions[count].q, questions[count].a);
-  // cardArray.push(thisCard);
-  //console.log(thisCard.partial);
+if(count<array.length){
+
   inquirer.prompt([
     {
       name: "answerInput",
-      message: questions[count].partial+"---->"
+      message: array[count].partial+"---->"
     }
 
   ]).then(function(answers) {
-    var message=questions[count].checkAnswer(answers.answerInput);
+    var message=array[count].checkAnswer(answers.answerInput);
     console.log(message[1]);
     if(message[0]){
       rightCount ++}
     else{wrongCount ++};
     count++;
-    askQuestions();
+    askQuestions(array);
   });
 }
 else {
-  console.log("You had "+rightCount+" right answers and "+wrongCount+ " wrong answers! \nWhat would you like to do now?");
+  console.log("You had "+rightCount+" right answers and "+wrongCount+ " wrong answers!");
   initialMenu();
 }
 }
 
-var moreQuestions=true;
 function makeFlashcards() {
     console.log("These will be fill in the blank flash cards. You will write a statement and then identify the words to omit!");
     inquirer.prompt([
@@ -117,8 +104,9 @@ function makeFlashcards() {
         }
       ]).then(function(answer) {
           if(answer.moreQuestions==="No"){
-            console.log("no more questions")
+            console.log("YOUR QUESTIONS");
             for (var x = 0; x < cardArray.length; x++) {
+
               console.log(cardArray[x].fullText);
               console.log(cardArray[x].partial);
               console.log(cardArray[x].cloze);
@@ -132,7 +120,10 @@ function makeFlashcards() {
               }
             ]).then(function(answer2) {
               if(answer2.takeQuiz==="Yes"){
-                console.log("redirect to quiz function")
+                count=0;
+                rightCount=0;
+                wrongCount=0;
+                askQuestions(cardArray);
               }
               else{
                 initialMenu();
