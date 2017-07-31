@@ -1,0 +1,22 @@
+{
+  "name": "flashcardapp",
+  "version": "1.0.0",
+  "description": "app that allows one to make flashcards and quizes them",
+  "main": "flashCardApp.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maya-Tea/flashCardApp.git"
+  },
+  "author": "Mayat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Maya-Tea/flashCardApp/issues"
+  },
+  "homepage": "https://github.com/Maya-Tea/flashCardApp#readme",
+  "dependencies": {
+    "inquirer": "^3.2.1"
+  }
+}
